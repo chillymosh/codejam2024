@@ -13,6 +13,14 @@
     import {userStore, loggedInStore} from "../stores/stores";
 	import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
     
+    
+    // userStore.subscribe((value) => {
+    //     // if value is not null, set loggedIn to True
+    //     // if value is null (default), set loggedIn to False
+    //     l = value != null
+    //     }
+    // )
+
     function login() {
         if (typeof window !== 'undefined') {
             window.location.assign(baseApiUrl +  '/oauth/redirect');
