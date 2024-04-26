@@ -10,18 +10,9 @@
     import {Button} from "flowbite-svelte";
     import DiscordIcon from "../components/DiscordIcon.svelte";
     import {baseApiUrl, logout} from "../services/services";
-    import {userStore} from "../stores/stores";
+    import {userStore, loggedInStore} from "../stores/stores";
 	import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
     
-    let loggedIn : boolean = false;
-    
-    userStore.subscribe((value) => {
-        // if value is not null, set loggedIn to True
-        // if value is null (default), set loggedIn to False
-        loggedIn = value != null
-        }
-    )
-
     function login() {
         if (typeof window !== 'undefined') {
             window.location.assign(baseApiUrl +  '/oauth/redirect');
@@ -47,7 +38,7 @@
 		<div id="left-side" class="flex col">
 			<Banner size="normal" />
 
-            {#if !loggedIn}
+            {#if !loggedInStore}
             <Button on:click={login}>
                 <span class="mr-3">Login with Discord</span> <DiscordIcon size="2x"/>
             </Button>
