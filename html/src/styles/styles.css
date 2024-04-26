@@ -50,7 +50,7 @@ isolation: isolate;
 }
 .fira-code-nav {
     font-family: "Fira Code", monospace;
-    font-optical-sizing: auto;
+    /* font-optical-sizing: auto; */
     font-weight: 400;
     font-style: normal;
 }
@@ -61,6 +61,23 @@ isolation: isolate;
     --card-color: #ece8d8cd;
     --card-font-color: #2a2e5d;
     --gradient-background: linear-gradient(90deg, rgb(203, 164, 122) 0%, rgb(170, 121, 154) 100%);
+}
+h1 {
+    font-size: 2rem;
+    padding: 1rem 0rem;
+}
+h2 {
+    font-size: 1.5rem;
+    padding: 1rem 0rem;
+    
+}
+h3 {
+    font-size: 1.17rem;
+    padding: 1rem 0rem;
+}
+h4 {
+    font-size: 1rem;
+    padding: 1rem 0rem;
 }
 body {
     color: white;
@@ -100,23 +117,19 @@ a:hover {
 .sp-between {
     align-content: space-between;
 }
+
 .card {
-    border-radius: 15px;
-    background-color: var(--card-color);
+    padding: 2rem 2rem;
     margin-bottom: 2rem;
-}
-.card {
-    padding: 3rem 5rem;
     color: black;
-    border-radius: 50px;
+    border-radius: 25px 8px 25px 8px;
     margin-left: 3rem;
     margin-right: 3rem;
     font-size: 1rem;
     text-align: left;
-    border-radius: 50px;
     background: #e0e0e0;
     box-shadow:  -5px 5px 20 #7d7d7d,
-                5px -5px 20 #ffffff;
+                5px -5px 20 #FFF;
 }
 .banner {
     position: fixed;
@@ -153,4 +166,10 @@ a:hover {
 }
 .center {
     justify-content: center;
+}
+.goalbtn {
+    background-color: pink;
+}
+.goalbtn:hover {
+    background-color: black;
 }

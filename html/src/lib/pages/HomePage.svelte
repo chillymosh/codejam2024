@@ -55,7 +55,7 @@
             <!-- dont need big aesthetic when already logged in -->
 				<Panel />
 			<!-- {/if} --> 
-			<Nav />
+            <Nav />
 			<Content />
 		</div>
 		<div id="right-side" class="flex col">

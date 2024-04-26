@@ -5,6 +5,7 @@ import TextRules from "./Info/TextRules.svelte";
 import { activeContent } from "../stores/stores";
 import SubProfile from "./SubProfile.svelte";
 import {userStore, loggedInStore} from "../stores/stores";
+import Nav from "./Nav.svelte";
     
 
 
@@ -24,6 +25,7 @@ import {userStore, loggedInStore} from "../stores/stores";
 
 
 <div class="content"> 
+
 
 
     {#if loggedInStore}

@@ -25,6 +25,7 @@
         font-size: 2.5em;
         text-wrap: none;
         text-align: center;
+        text-wrap: nowrap;
     }
     .banner-bottom {
         text-shadow: 

@@ -10,7 +10,7 @@
         font-size: 1rem;
     }
     .panel-text {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     li {
         text-align: left;
@@ -25,7 +25,7 @@
 
 <div class="flex panel center">
     <div class="panel-text">
-        Ingredients for Codejam:
+        Ingredients for codejam...
         <ul>
             <li>
                 sugar

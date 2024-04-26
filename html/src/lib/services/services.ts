@@ -4,6 +4,7 @@ import {userStore} from "../stores/stores";
 // This shouldn't ever need to be set since dev and prod environments will just use relative endpoints
 export let baseApiUrl : string = "";
 
+// global for browsers current page
 const originalFetch = window.fetch;
 
 // Override standard "fetch" so we have a place to generically handle errors
