@@ -6,3 +6,8 @@
 
 # Config files...
 config.toml
+
+# personal 
+backend/app/codejam.io.exe
+backend/brainstorm.txt
+html/src/lib/components/GradientChange.svelte
