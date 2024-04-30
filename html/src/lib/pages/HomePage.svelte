@@ -10,17 +10,15 @@
     import {Button} from "flowbite-svelte";
     import DiscordIcon from "../components/DiscordIcon.svelte";
     import {baseApiUrl, logout} from "../services/services";
-    import {userStore} from "../stores/stores";
+    import {userStore, loggedInStore} from "../stores/stores";
 	import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
     
-    let loggedIn : boolean = false;
-    
-    userStore.subscribe((value) => {
-        // if value is not null, set loggedIn to True
-        // if value is null (default), set loggedIn to False
-        loggedIn = value != null
-        }
-    )
+    // userStore.subscribe((value) => {
+    //     // if value is not null, set loggedIn to True
+    //     // if value is null (default), set loggedIn to False
+    //     l = value != null
+    //     }
+    // )
 
     function login() {
         if (typeof window !== 'undefined') {
@@ -42,12 +40,12 @@
         <div class="card">{@html timeline}</div>
         {/if}
     </div> -->
-
+    {loggedInStore}
 	<div class="flex row">
 		<div id="left-side" class="flex col">
 			<Banner size="normal" />
 
-            {#if !loggedInStore}
+            {#if !$loggedInStore}
             <Button on:click={login}>
                 <span class="mr-3">Login with Discord</span> <DiscordIcon size="2x"/>
             </Button>
