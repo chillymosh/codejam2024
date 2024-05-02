@@ -5,6 +5,7 @@ import (
 )
 
 type DBUser struct {
+	// step 1 create User
 	Id            pgtype.UUID      `db:"id" `
 	ServiceName   string           `db:"service_name"`
 	ServiceUserId string           `db:"service_user_id" json:"-"`
@@ -13,6 +14,7 @@ type DBUser struct {
 }
 
 func CreateUser(serviceName string, serviceUserId string, serviceDisplayName string) DBUser {
+	// step 2 create user
 	user, err := GetRow[DBUser](
 		`INSERT INTO users (service_name, service_user_id, display_name)
 		 VALUES ($1, $2, $3)

@@ -19,9 +19,9 @@ func CreateEvent(organizerUserId pgtype.UUID) (DBEvent, error) {
 	var event DBEvent
 	event, err := GetRow[DBEvent](
 		`INSERT INTO events
-           (status_id, title, description, rules, organizer_user_id)
+            (status_id, title, description, rules, organizer_user_id)
          VALUES
-           ((SELECT id FROM statuses WHERE code = 'PLANNING'),
+            ((SELECT id FROM statuses WHERE code = 'PLANNING'),
             '',
             '',
             '',
