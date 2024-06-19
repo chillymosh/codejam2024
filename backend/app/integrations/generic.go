@@ -38,6 +38,7 @@ func getDiscordUser(accessToken string) *IntegrationUser {
 			IntegrationName: "discord",
 			UserId:          user["id"].(string),
 			DisplayName:     user["global_name"].(string),
+			AvatarUrl:       user["avatar"].(string),
 		}
 	}
 }
@@ -51,5 +52,4 @@ func GetUser(integrationName string, accessToken string) *IntegrationUser {
 	default:
 		return nil
 	}
-
 }
