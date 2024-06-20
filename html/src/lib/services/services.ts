@@ -1,102 +1,87 @@
-import {activeEventStore, eventStatusStore, userStore} from "../stores/stores";
+import { activeEventStore, eventStatusStore, userStore } from "../stores/stores";
 import CodeJamEvent from "../models/event";
 
-// This shouldn't ever need to be set since dev and prod environments will just use relative endpoints
-export let baseApiUrl : string = "";
+export let baseApiUrl = "";
 
-const originalFetch = window.fetch;
-
-// Override standard "fetch" so we have a place to generically handle errors
-window.fetch = (...args) => {
-    return new Promise((resolve) => {
-        originalFetch(...args)
-            .then((response) => {
-                resolve(response);
-            })
-            .catch((err) => {
-                console.error("fetch error:", err, ...args);
-                throw err;
-            })
-    });
+// Custom fetch function to handle common logic and errors
+async function customFetch(url, options = {}) {
+    const fullUrl = `${baseApiUrl}${url}`;
+    try {
+        const response = await fetch(fullUrl, { credentials: 'include', ...options });
+        if (!response.ok) {
+            if (response.status === 401) {
+                userStore.set(null);
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response;
+    } catch (error) {
+        console.error('Fetch error:', error, url, options);
+        throw error; // Re-throw to allow specific handlers in calling functions to react
+    }
 }
 
 export async function getUser() {
-    return fetch(baseApiUrl + "/user/", {method: 'GET', credentials: 'include'})
-        .then((response) => {
-            if (response.status === 401) {
-                userStore.set(null);
-            } else {
-                response.json()
-                    .then((data) => {
-                        userStore.set(data);
-                    })
-                    .catch((err) => {
-                        console.error("error deserializing user", err);
-                    });
-            }
-        });
+    try {
+        const response = await customFetch("/user/");
+        const data = await response.json();
+        userStore.set(data);
+    } catch (error) {
+        console.error("Error deserializing user", error);
+    }
 }
 
 export async function logout() {
-    return fetch(baseApiUrl + "/user/logout")
-        .then(() => {
-            userStore.set(null);
-        })
-        .catch((err) => {
-            console.error("Logout error", err);
-        });
+    try {
+        await customFetch("/user/logout");
+        userStore.set(null);
+    } catch (error) {
+        console.error("Logout error", error);
+    }
 }
 
 export async function getActiveEvent() {
-    return fetch(baseApiUrl + "/event/active")
-        .then((response) => {
-            if (response.status === 401) {
-                userStore.set(null);
-            } else if (response.status === 204) {
-                activeEventStore.set(null);
-            } else {
-                response.json()
-                    .then((data) => {
-                        activeEventStore.set(data as CodeJamEvent);
-                    })
-                    .catch((err) => {
-                        console.error("error deserializing event", response, err);
-                    });
-            }
-        });
+    try {
+        const response = await customFetch("/event/active");
+        if (response.status === 204) {
+            activeEventStore.set(null);
+        } else {
+            const data = await response.json();
+            activeEventStore.set(data as CodeJamEvent);
+        }
+    } catch (error) {
+        console.error("Error deserializing event", error);
+    }
 }
 
 export async function getEvents() {
-    return fetch(baseApiUrl + "/event/");
+    return await customFetch("/event/");
 }
 
 export async function getEvent(id: string) {
-    return fetch(baseApiUrl + "/event/" + id);
+    return await customFetch(`/event/${id}`);
 }
 
 export async function putEvent(event: CodeJamEvent) {
-    return await fetch(baseApiUrl + "/event/" + event.Id,
-        {
-            method: "PUT",
-            body: JSON.stringify(event)
-        });
+    return await customFetch(`/event/${event.Id}`, {
+        method: "PUT",
+        body: JSON.stringify(event),
+        headers: {'Content-Type': 'application/json'}
+    });
 }
 
 export async function getEventStatuses() {
-    return fetch(baseApiUrl + "/event/statuses")
-        .then((response) => {
-            response.json()
-                .then((data) => {
-                    eventStatusStore.set(data)
-                });
-        })
+    try {
+        const response = await customFetch("/event/statuses");
+        const data = await response.json();
+        eventStatusStore.set(data);
+    } catch (error) {
+        console.error("Error fetching event statuses", error);
+    }
 }
 
-// Always call at startup to get the initial states
 async function initialLoad() {
-    getUser();
-    getActiveEvent();
-    getEventStatuses();
+    await Promise.all([getUser(), getActiveEvent(), getEventStatuses()]);
 }
 
 initialLoad();

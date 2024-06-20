@@ -4,14 +4,14 @@
 	let goalsModal = false;
 	let timelineModal = false;
 	let rulesModal = false;
-    import {userStore, loggedInStore} from "../stores/stores";
-    
+    import { loggedInStore } from "../stores/stores";
 
 	function setActiveContent(content: string) {
 		activeContent.set(content);
 		console.log(activeContent);
 		if (loggedIn) {
-			document.getElementById(content)?.classList.add('card-module');
+			const element = document.getElementById(content);
+			element?.classList.add('card-module');
 		}
 	}
 </script>
@@ -66,7 +66,7 @@
 		replace this text with goals content
 	</p>
 	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-		The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25
+		The European Union's General Data Protection Regulation (G.D.P.R.) goes into effect on May 25
 		and is meant to ensure a common set of data rights in the European Union. It requires
 		organizations to notify users as soon as possible of high-risk data breaches that could
 		personally affect them.
@@ -81,7 +81,7 @@
 		citizens, companies around the world are updating their terms of service agreements to comply.
 	</p>
 	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-		The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25
+		The European Union's General Data Protection Regulation (G.D.P.R.) goes into effect on May 25
 		and is meant to ensure a common set of data rights in the European Union. It requires
 		organizations to notify users as soon as possible of high-risk data breaches that could
 		personally affect them.
@@ -97,7 +97,7 @@
 		citizens, companies around the world are updating their terms of service agreements to comply.
 	</p>
 	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-		The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25
+		The European Union's General Data Protection Regulation (G.D.P.R.) goes into effect on May 25
 		and is meant to ensure a common set of data rights in the European Union. It requires
 		organizations to notify users as soon as possible of high-risk data breaches that could
 		personally affect them.
