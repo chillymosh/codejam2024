@@ -30,8 +30,8 @@
         mapStatusOptions(statuses);
     });
     
-    let clearErrors : () => {};
-    let parseResponse : (response: object) => {};
+    let clearErrors : ()  => void;
+    let parseResponse : (response: object)  => void;
     
     async function saveForm() {
         if (formData !== null) {
