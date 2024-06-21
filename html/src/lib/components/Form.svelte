@@ -13,23 +13,23 @@
         }
     }
 
-    let fields: Map<string, FormFieldRef> = new Map();
+    let fieldMap: Map<string, FormFieldRef> = new Map();
 
     setContext('formFunctions', {
         register: (name: string, errorFunction: (msg: string) => {}) => {
-            fields.set(name, new FormFieldRef(name, errorFunction));
+            fieldMap.set(name, new FormFieldRef(name, errorFunction));
         }
     });
 
     function SetFieldError(fieldName: string, error: string) {
-        const field = fields.get(fieldName);
+        const field = fieldMap.get(fieldName);
         if (field) {
             field.errorFunction(error);
         }
     }
 
     export const clearErrors = () => {
-        fields.forEach((item) => {
+        fieldMap.forEach((item) => {
             item.errorFunction('');
         });
     }
