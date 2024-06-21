@@ -4,7 +4,7 @@ import CodeJamEvent from "../models/event";
 export let baseApiUrl = "";
 
 // Custom fetch function to handle common logic and errors
-async function customFetch(url, options = {}) {
+async function customFetch(url: string, options = {}) {
     const fullUrl = `${baseApiUrl}${url}`;
     try {
         const response = await fetch(fullUrl, { credentials: 'include', ...options });
