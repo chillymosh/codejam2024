@@ -3,8 +3,24 @@ import CodeJamEvent from "../models/event";
 
 export let baseApiUrl = "";
 
+type FetchOptions = {
+    method?: string;
+    headers?: HeadersInit;
+    body?: BodyInit | null;
+    mode?: RequestMode;
+    cache?: RequestCache;
+    redirect?: RequestRedirect;
+    referrer?: string;
+    referrerPolicy?: ReferrerPolicy;
+    integrity?: string;
+    signal?: AbortSignal | null;
+    keepalive?: boolean;
+    window?: null;
+};
+
+
 // Custom fetch function to handle common logic and errors
-async function customFetch(url: string, options = {}) {
+async function customFetch(url: string, options: FetchOptions = {}) {
     const fullUrl = `${baseApiUrl}${url}`;
     try {
         const response = await fetch(fullUrl, { credentials: 'include', ...options });
@@ -66,7 +82,7 @@ export async function putEvent(event: CodeJamEvent) {
     return await customFetch(`/event/${event.Id}`, {
         method: "PUT",
         body: JSON.stringify(event),
-        headers: {'Content-Type': 'application/json'}
+        headers: { 'Content-Type': 'application/json' }
     });
 }
 
